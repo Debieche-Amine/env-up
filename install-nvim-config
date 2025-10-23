@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Description: Installs a Neovim configuration with optional backup and cleanup.
+
+CONFIG_DIR="$HOME/.config/nvim"
+DATA_DIR="$HOME/.local/share/nvim"
+STATE_DIR="$HOME/.local/state/nvim"
+CACHE_DIR="$HOME/.cache/nvim"
+SOURCE_DIR="./nvim"
+
+echo "=== Neovim Configuration Installer ==="
+
+# Step 1: Backup or remove current Neovim config
+read -p "Do you want to backup your current Neovim config? (Recommended) [y/n]: " backup_choice
+
+if [[ "$backup_choice" =~ ^[yY]$ ]]; then
+    if [ -d "$CONFIG_DIR" ]; then
+        mv "$CONFIG_DIR" "${CONFIG_DIR}.bak"
+        echo "Backup created: ${CONFIG_DIR} → ${CONFIG_DIR}.bak"
+    else
+        echo "No existing Neovim config to backup."
+    fi
+else
+    if [ -d "$CONFIG_DIR" ]; then
+        rm -rf "$CONFIG_DIR"
+        echo "Existing Neovim config removed."
+    fi
+fi
+
+# Step 2: Optional cleanup of Neovim folders
+read -p "Do you want to clean Neovim folders (Optional but recommended)? [y/n]: " clean_choice
+
+if [[ "$clean_choice" =~ ^[yY]$ ]]; then
+    for dir in "$DATA_DIR" "$STATE_DIR" "$CACHE_DIR"; do
+        if [ -d "$dir" ]; then
+            mv "$dir" "${dir}.bak"
+            echo "Backed up $dir → ${dir}.bak"
+        fi
+    done
+fi
+
+# Step 3: Install new Neovim configuration
+if [ -d "$SOURCE_DIR" ]; then
+    cp -r "$SOURCE_DIR" "$CONFIG_DIR"
+    echo "Neovim configuration installed: $SOURCE_DIR → $CONFIG_DIR"
+else
+    echo "Error: Source directory $SOURCE_DIR does not exist. Aborting."
+    exit 1
+fi
+
+echo "=== Installation Complete! ==="
