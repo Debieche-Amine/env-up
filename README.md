@@ -32,10 +32,10 @@ $mod+d to open rofi (an app luncher)
 
 $mod+q to close focused window  
 
-$mod+<hjkl> or arrows to move focus  
-$mod+Ctrl+<hjkl> or arrows to move between workspaces  
-$mod+Ctrl+Shift+<hjkl> or arrows to move windows between workspaces  
-$mod+Alt+<hjkl> or arrows to move windows inside the same workspace  
+$mod+hjkl or arrows to move focus  
+$mod+Ctrl+hjkl or arrows to move between workspaces  
+$mod+Ctrl+Shift+hjkl or arrows to move windows between workspaces  
+$mod+Alt+hjkl or arrows to move windows inside the same workspace  
 
 $mod+shift+v to select vertical split mode on window  
 $mod+v to select horizontal split mode on window  
