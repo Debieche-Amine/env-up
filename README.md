@@ -26,27 +26,27 @@ here is the essentials, refer to the config itself for full details
 
 $mod is the meta(win) key  
 
-$mod+Return to open alacritty (a terminal)
-$mod+b to open firefox
-$mod+d to open rofi (an app luncher)
+$mod+Return to open alacritty (a terminal)  
+$mod+b to open firefox  
+$mod+d to open rofi (an app luncher)  
 
-$mod+q to close focused window
+$mod+q to close focused window  
 
-$mod+<hjkl> or arrows to move focus
-$mod+Ctrl+<hjkl> or arrows to move between workspaces
-$mod+Ctrl+Shift+<hjkl> or arrows to move windows between workspaces
-$mod+Alt+<hjkl> or arrows to move windows inside the same workspace
+$mod+<hjkl> or arrows to move focus  
+$mod+Ctrl+<hjkl> or arrows to move between workspaces  
+$mod+Ctrl+Shift+<hjkl> or arrows to move windows between workspaces  
+$mod+Alt+<hjkl> or arrows to move windows inside the same workspace  
 
-$mod+shift+v to select vertical split mode on window
-$mod+v to select horizontal split mode on window
+$mod+shift+v to select vertical split mode on window  
+$mod+v to select horizontal split mode on window  
 
-$mod+Alt+r restart i3
-$mod+Alt+e exit i3
+$mod+Alt+r restart i3  
+$mod+Alt+e exit i3  
 
-$mod+Alt+l lock screen
+$mod+Alt+l lock screen  
 
-$mod+Alt+d shutdown
-$mod+Alt+Delete restart
+$mod+Alt+d shutdown  
+$mod+Alt+Delete restart  
 
-$mod+m+<azeiop> to mark a windows
-$mod+<azeiop> to go to marked window
+$mod+m+<azeiop> to mark a windows  
+$mod+<azeiop> to go to marked window  
