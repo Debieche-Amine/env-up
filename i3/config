@@ -8,9 +8,10 @@ font pango:monospace 8
 # Include modular configuration files
 include ~/.config/i3/general_settings.conf
 include ~/.config/i3/keybindings.conf
-include ~/.config/i3/workspace_settings.conf
+include ~/.config/i3/workspaces/keybindings.conf
 include ~/.config/i3/autostart.conf
-include ~/.config/i3/normal.conf
+include ~/.config/i3/mark.conf
+include ~/.config/i3/scratchpad.conf
 
 # Start i3bar
 # bar {

@@ -4,10 +4,18 @@ vim.cmd("colorscheme astromars")
 -- lines doesnt go off screen
 vim.opt.wrap = true
 
+-- spell checking
+vim.opt.spell = true
+
+
 -- Reselect visual selection after shifting left/right
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 
+
+
+-- visual mode color (selected text color)
+vim.api.nvim_set_hl(0, "Visual", { fg = "NONE", bg = "#44473a" })
 
 -- Use system clipboard for all yank, delete, change, and paste operations
 vim.opt.clipboard = "unnamedplus"
