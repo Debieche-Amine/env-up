@@ -48,5 +48,8 @@ $mod+Alt+l lock screen
 $mod+Alt+d shutdown  
 $mod+Alt+Delete restart  
 
-$mod+m+<azeiop> to mark a windows  
-$mod+<azeiop> to go to marked window  
+$mod+m+azeiop to mark a windows  
+
+$mod+azeiop to go to marked window  
+
+
