@@ -12,6 +12,7 @@ include ~/.config/i3/workspaces/keybindings.conf
 include ~/.config/i3/autostart.conf
 include ~/.config/i3/mark.conf
 include ~/.config/i3/scratchpad.conf
+include ~/.config/i3/console/console.conf
 
 # Start i3bar
 # bar {

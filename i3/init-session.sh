@@ -14,7 +14,6 @@ TERMINAL="alacritty"
 i3-msg "workspace number 126"
 sleep 0.2
 $TERMINAL &
-sleep 0.2
 $TERMINAL &
 # 
 # # Workspace 125
