@@ -1,14 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules/system/nix-ld.nix
+    ./modules/system/android.nix
+    ./modules/system/wifi.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -18,15 +24,67 @@
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  services.ddclient = {
+    enable = true;
+    protocol = "duckdns";
+    username = "";
+
+    passwordFile = "/home/qylad/shadow/duckdns";
+    domains = [
+      "qylad.duckdns.org"
+      "qylad-home.duckdns.org"
+      "qylad-server.duckdns.org"
+      "debiecheamine.duckdns.org"
+    ];
+    use = "web";
+    ssl = true;
+    interval = "5min";
+  };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      mesa # OpenGL support (for glxgears/glxinfo)
+      intel-media-driver # VAAPI / video acceleration
+      intel-vaapi-driver # Intel VAAPI bindings
+    ];
+  };
+  services.xserver.videoDrivers = ["intel"];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.ensureProfiles.profiles.home = {
+  #   connection = {
+  #     id = "home";
+  #     type = "wifi";
+  #     autoconnect = true;
+  #   };
+  #   wifi.ssid = "ZTE_5G_uSUN2F";
+  #   wifi-security = {
+  #     key-mgmt = "wpa-psk";
+  #     psk = "TH6sYPFK";
+  #   };
+  #   ipv4.method = "manual";
+  #   ipv4.addresses = "192.168.1.2/24";
+  #   ipv4.gateway = "192.168.1.1";
+  #   ipv4.dns = "8.8.8.8";
+  #   ipv6.method = "ignore";
+  # };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  
+  services.logind.settings.Login = {
+    IdleAction = "ignore";
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    LidSwitchIgnoreInhibited = "no";
+    HandlePowerKey = "ignore";
+  };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set your time zone.
   time.timeZone = "Africa/Algiers";
@@ -52,41 +110,53 @@
     variant = "azerty";
   };
 
+  # xkbOptions = "caps:escape";
+
   # Configure console keymap
   console.keyMap = "fr";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account.
   users.users.qylad = {
     isNormalUser = true;
     description = "qylad";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = lib.mkAfter [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [];
     shell = pkgs.fish;
   };
-  
+
+  home-manager = {
+    extraSpecialArgs = {inherit inputs;};
+    users = {
+      "qylad" = import ./home.nix;
+    };
+  };
+
   programs.fish = {
     enable = true;
-    interactiveShellInit = ''
-      fish_vi_key_bindings
-  
-      set -g fish_cursor_default block
-      set -g fish_cursor_insert line
-      set -g fish_cursor_replace_one underscore
-    '';
   };
 
   programs.neovim = {
     enable = true;
     vimAlias = true;
+    defaultEditor = true;
   };
 
   programs.firefox.enable = true;
 
+  services.system76-scheduler.enable = true;
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
-  services.displayManager.autoLogin = { 
+  services.displayManager.autoLogin = {
     enable = true;
     user = "qylad";
+  };
+
+  virtualisation.docker = {
+    enable = true;
   };
 
   # Allow unfree packages
@@ -95,9 +165,76 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # Idk
+    xclip
+    wl-clipboard
+    # postgresql_16
+    android-tools
+    appimage-run
+    burpsuite
+
+    tree
+
+    mesa-demos
+    vlc
+
+    openssl
+
+    pkg-config
+    mysql80
+
+    # Compiler, Interpreter, Formater, Language Server, ...
+    rustup
+    python3
+    gcc
+    alejandra
+    nil
+    nixd
+    gnumake
+
     wget
+    httpie
+
+    # Tools
     git
+    zellij
+
+    # Download Manager
+    motrix
+
+    # Monitoring System, Performance
+    btop
+    intel-gpu-tools
+
+    # Editor
+    zed-editor
+
+    # Terminal
+    kitty
+    alacritty
+    rio
+    wezterm
+
+    # Non Free App
+    vivaldi
+    discord
+    spotify
+    musescore
   ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+  ];
+
+  # services.postgresql = {
+  #   enable = true;
+  #   package = pkgs.postgresql_16;
+  #   ensureDatabases = ["mydatabase"];
+  #   authentication = pkgs.lib.mkOverride 10 ''
+  #     #type database  DBuser  auth-method
+  #     local all       all     trust
+  #   '';
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -110,13 +247,43 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = true;
+    listenAddresses = [
+      {
+        addr = "0.0.0.0";
+        port = 22;
+      }
+    ];
+  };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
+  services.ollama = {
+    enable = true;
+  };
+
+  # networking.nftables.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    allowedTCPPorts = [
+      22
+      5000
+      8001
+    ];
+    allowedTCPPortRanges = [
+      {
+        from = 12000;
+        to = 12100;
+      }
+    ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -125,5 +292,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
