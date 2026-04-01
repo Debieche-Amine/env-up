@@ -9,8 +9,9 @@
   home.homeDirectory = "/home/qylad";
 
   imports = [
+    ./modules/nvf.nix
+    # ./modules/neovim.nix
     ./modules/fish.nix
-    ./modules/neovim.nix
     ./modules/git.nix
   ];
 

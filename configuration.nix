@@ -24,6 +24,8 @@
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  virtualisation.spiceUSBRedirection.enable = true;
+
   services.ddclient = {
     enable = true;
     protocol = "duckdns";
@@ -123,6 +125,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "kvm"
     ];
     packages = with pkgs; [];
     shell = pkgs.fish;
@@ -172,6 +175,12 @@
     android-tools
     appimage-run
     burpsuite
+    cacert
+
+    sshfs
+
+    quickemu
+    spice-gtk
 
     tree
 
