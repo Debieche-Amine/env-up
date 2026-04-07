@@ -14,6 +14,7 @@
     ./modules/system/nix-ld.nix
     ./modules/system/android.nix
     ./modules/system/wifi.nix
+    ./modules/steam.nix
   ];
 
   # Bootloader.
@@ -176,6 +177,8 @@
     appimage-run
     burpsuite
     cacert
+    ripgrep
+    lsof
 
     sshfs
 

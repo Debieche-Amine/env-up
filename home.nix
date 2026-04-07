@@ -13,6 +13,7 @@
     # ./modules/neovim.nix
     ./modules/fish.nix
     ./modules/git.nix
+    ./modules/alacritty.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
