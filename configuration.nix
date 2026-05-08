@@ -11,6 +11,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./modules/system/duckdns.nix
     ./modules/system/nix-ld.nix
     ./modules/system/android.nix
     ./modules/system/wifi.nix
