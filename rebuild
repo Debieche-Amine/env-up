@@ -23,18 +23,18 @@ git add -A
 git diff --staged
 
 case "$choice" in
-  1)
-    CMD="sudo nixos-rebuild switch --flake $FLAKE_PATH#$FLAKE_TARGET"
-    COMMIT_AFTER_BUILD=true
-    ;;
-  2)
-    CMD="sudo nixos-rebuild test --flake $FLAKE_PATH#$FLAKE_TARGET"
-    COMMIT_AFTER_BUILD=false
-    ;;
-  *)
-    echo "Invalid choice."
-    exit 1
-    ;;
+1)
+        CMD="sudo nixos-rebuild switch --flake $FLAKE_PATH#$FLAKE_TARGET"
+        COMMIT_AFTER_BUILD=true
+        ;;
+2)
+        CMD="sudo nixos-rebuild test --flake $FLAKE_PATH#$FLAKE_TARGET"
+        COMMIT_AFTER_BUILD=false
+        ;;
+*)
+        echo "Invalid choice."
+        exit 1
+        ;;
 esac
 
 echo
@@ -42,30 +42,30 @@ echo "Running: $CMD"
 echo
 
 if $CMD 2>&1 | tee "$LOG_FILE"; then
-  echo
-  echo "Build succeeded."
+        echo
+        echo "Build succeeded."
 
-  if [ "$COMMIT_AFTER_BUILD" = true ]; then
-    echo "Committing changes..."
+        if [ "$COMMIT_AFTER_BUILD" = true ]; then
+                echo "Committing changes..."
 
-    cd "$FLAKE_PATH" || exit 1
+                cd "$FLAKE_PATH" || exit 1
 
-    # Only commit if there are changes
-    if ! git diff --cached --quiet; then
-      git commit -m "nixos: ($TIMESTAMP)"
-      echo "Git commit created."
-    else
-      echo "No changes to commit."
-    fi
-  else
-    echo "Skipping commit, as this was a 'test' run."
-  fi
+                # Only commit if there are changes
+                if ! git diff --cached --quiet; then
+                        git commit -m "nixos: ($TIMESTAMP)"
+                        echo "Git commit created."
+                else
+                        echo "No changes to commit."
+                fi
+        else
+                echo "Skipping commit, as this was a 'test' run."
+        fi
 else
-  echo
-  echo "Build failed."
-  echo "Full log saved to: $LOG_FILE"
-  echo
-  echo "---- Errors ----"
-  grep -i "error" "$LOG_FILE" || echo "No explicit 'error' lines found."
-  echo "----------------"
+        echo
+        echo "Build failed."
+        echo "Full log saved to: $LOG_FILE"
+        echo
+        echo "---- Errors ----"
+        grep -i "error" "$LOG_FILE" || echo "No explicit 'error' lines found."
+        echo "----------------"
 fi

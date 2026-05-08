@@ -14,14 +14,13 @@
     ./modules/system/nix-ld.nix
     ./modules/system/android.nix
     ./modules/system/wifi.nix
+    ./modules/system/boot.nix
+    ./modules/system/pkgs.nix
+    ./modules/system/DE.nix
+    # ./modules/system/GPU.nix
     ./modules/steam.nix
   ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-a73fd3be-fa25-4ea5-9fd8-bf77bd0356b2".device = "/dev/disk/by-uuid/a73fd3be-fa25-4ea5-9fd8-bf77bd0356b2";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -36,7 +35,7 @@
     domains = [
       "qylad.duckdns.org"
       "qylad-home.duckdns.org"
-      "qylad-server.duckdns.org"
+      # "qylad-server.duckdns.org"
       "debiecheamine.duckdns.org"
     ];
     use = "web";
@@ -44,37 +43,9 @@
     interval = "5min";
   };
 
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      mesa # OpenGL support (for glxgears/glxinfo)
-      intel-media-driver # VAAPI / video acceleration
-      intel-vaapi-driver # Intel VAAPI bindings
-    ];
-  };
-  services.xserver.videoDrivers = ["intel"];
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # networking.networkmanager.ensureProfiles.profiles.home = {
-  #   connection = {
-  #     id = "home";
-  #     type = "wifi";
-  #     autoconnect = true;
-  #   };
-  #   wifi.ssid = "ZTE_5G_uSUN2F";
-  #   wifi-security = {
-  #     key-mgmt = "wpa-psk";
-  #     psk = "TH6sYPFK";
-  #   };
-  #   ipv4.method = "manual";
-  #   ipv4.addresses = "192.168.1.2/24";
-  #   ipv4.gateway = "192.168.1.1";
-  #   ipv4.dns = "8.8.8.8";
-  #   ipv6.method = "ignore";
-  # };
 
   services.logind.settings.Login = {
     IdleAction = "ignore";
@@ -151,88 +122,13 @@
 
   programs.firefox.enable = true;
 
-  services.system76-scheduler.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "qylad";
-  };
-
   virtualisation.docker = {
     enable = true;
   };
+  services.vnstat.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # Idk
-    xclip
-    wl-clipboard
-    # postgresql_16
-    android-tools
-    appimage-run
-    burpsuite
-    cacert
-    ripgrep
-    lsof
-
-    sshfs
-
-    quickemu
-    spice-gtk
-
-    tree
-
-    mesa-demos
-    vlc
-
-    openssl
-
-    pkg-config
-    mysql80
-
-    # Compiler, Interpreter, Formater, Language Server, ...
-    rustup
-    python3
-    gcc
-    alejandra
-    nil
-    nixd
-    gnumake
-
-    wget
-    httpie
-
-    # Tools
-    git
-    zellij
-
-    # Download Manager
-    motrix
-
-    # Monitoring System, Performance
-    btop
-    intel-gpu-tools
-
-    # Editor
-    zed-editor
-
-    # Terminal
-    kitty
-    alacritty
-    rio
-    wezterm
-
-    # Non Free App
-    vivaldi
-    discord
-    spotify
-    musescore
-  ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
@@ -277,6 +173,11 @@
 
   services.ollama = {
     enable = true;
+    # port = 56364;
+
+    # openFirewall = true;
+    # host = "0.0.0.0";
+    # package = pkgs.ollama-cuda;
   };
 
   # networking.nftables.enable = false;

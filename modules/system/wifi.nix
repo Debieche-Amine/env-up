@@ -31,13 +31,4 @@
       ipv6.method = "ignore";
     };
   };
-
-  # Your logind settings remain exactly as you wrote them
-  services.logind.settings.Login = {
-    IdleAction = "ignore";
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchDocked = "ignore";
-    LidSwitchIgnoreInhibited = "no";
-    HandlePowerKey = "ignore";
-  };
 }

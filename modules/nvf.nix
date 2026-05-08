@@ -9,6 +9,9 @@
           ignorecase = true;
           smartcase = true;
           wrap = true;
+          foldmethod = "indent";
+          foldlevel = 99;
+          foldenable = true;
 
           cursorline = true;
         };
@@ -65,6 +68,17 @@
           rust = {
             enable = true;
             extensions.crates-nvim.enable = true;
+            # lsp.opts = ''
+            #   ["rust-analyzer"] = {
+            #     cargo = {
+            #       allFeatures = true,
+            #     },
+            #     checkOnSave = true,
+            #     procMacro = {
+            #       enable = true,
+            #     },
+            #   }
+            # '';
           };
           python.enable = true;
           bash.enable = true;
