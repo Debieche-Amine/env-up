@@ -26,23 +26,6 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
-  services.ddclient = {
-    enable = true;
-    protocol = "duckdns";
-    username = "";
-
-    passwordFile = "/home/qylad/shadow/duckdns";
-    domains = [
-      "qylad.duckdns.org"
-      "qylad-home.duckdns.org"
-      # "qylad-server.duckdns.org"
-      "debiecheamine.duckdns.org"
-    ];
-    use = "web";
-    ssl = true;
-    interval = "5min";
-  };
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
