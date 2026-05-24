@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration with nvf and home-manager";
+  description = "NIXOS config";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -7,37 +7,23 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf.url = "github:notashelf/nvf";
+    nvf.url = "github:notashelf/nvf/v0.8";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixos-hardware,
     ...
   } @ inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;}; # Passes 'inputs' to all modules
-      modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.default
-        nixos-hardware.nixosModules.msi-prestige-15-a10sc
+    nixosConfigurations = {
+      main = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
 
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            extraSpecialArgs = {inherit inputs;}; # Passes 'inputs' to home.nix
-            users.qylad = {
-              imports = [
-                ./home.nix
-                inputs.nvf.homeManagerModules.default # <--- The Fix
-              ];
-            };
-          };
-        }
-      ];
+        modules = [
+          ./hosts/main
+        ];
+      };
     };
   };
 }

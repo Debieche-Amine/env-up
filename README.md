@@ -1,1 +1,3 @@
-My nixos config
+# NIXOS
+
+A NixOS flake for my system

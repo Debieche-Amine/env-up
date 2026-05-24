@@ -8,7 +8,9 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Idk
-    libreoffice
+    dust
+    gnome-disk-utility
+    # libreoffice
     xclip
     wl-clipboard
     gemini-cli
@@ -19,6 +21,8 @@
     burpsuite
     cacert
     ripgrep
+    fd
+
     lsof
     pciutils
 

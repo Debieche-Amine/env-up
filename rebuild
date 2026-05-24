@@ -3,12 +3,9 @@
 set -o pipefail
 
 FLAKE_PATH="$HOME/nixos"
-FLAKE_TARGET="nixos"
+FLAKE_TARGET="main"
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 LOG_FILE="/tmp/nixos-rebuild-$TIMESTAMP.log"
-
-# Open config in vim
-vim "$FLAKE_PATH/configuration.nix"
 
 echo
 echo "What do you want to do now?"
