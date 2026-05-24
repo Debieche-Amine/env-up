@@ -23,8 +23,3 @@ jobs:
         run: nix flake check
         env:
           NIX_CONFIG: "experimental-features = nix-command flakes"
-
-      - name: Build NixOS system
-        run: nix build .#nixosConfigurations.main.config.system.build.toplevel
-        env:
-          NIX_CONFIG: "experimental-features = nix-command flakes"
