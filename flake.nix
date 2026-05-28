@@ -17,6 +17,7 @@
     ...
   } @ inputs: {
     nixosConfigurations = {
+      system = "x86_64-linux";
       main = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
 

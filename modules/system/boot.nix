@@ -7,7 +7,7 @@
   boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.systemd.network.wait-online.enable = true;
+  boot.initrd.systemd.network.wait-online.enable = false;
 
   # Enable GRUB
   boot.loader.grub = {

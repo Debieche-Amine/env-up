@@ -14,6 +14,8 @@
     ../../home/fish.nix
     ../../home/git.nix
     ../../home/alacritty.nix
+    ../../home/kitty.nix
+    ../../home/pkgs
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -29,10 +31,6 @@
   # environment.
   home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    pkgs.hello
-    pkgs.jq
-    # pkgs.nixd
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

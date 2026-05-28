@@ -5,6 +5,8 @@
 
     settings = {
       vim = {
+        undoFile.enable = true;
+
         options = {
           ignorecase = true;
           smartcase = true;

@@ -10,11 +10,11 @@
 }: {
   imports = [
     ../../modules/system/duckdns.nix
-    ../../modules/system/nix-ld.nix
+    ../../modules/system/nix-ld/stable.nix
     ../../modules/system/android.nix
     ../../modules/system/wifi.nix
     ../../modules/system/boot.nix
-    ../../modules/system/pkgs.nix
+    ../../modules/system/pkgs
     ../../modules/system/ssh.nix
     ../../modules/system/firewall.nix
     ../../modules/system/sql.nix
@@ -109,6 +109,7 @@
   security.soteria.enable = true;
 
   security.audit.enable = true;
+  security.auditd.enable = true;
 
   services.udisks2.enable = true;
 
