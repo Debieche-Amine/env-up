@@ -17,12 +17,25 @@
     ...
   } @ inputs: {
     nixosConfigurations = {
-      system = "x86_64-linux";
-      main = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
+      qylad-msi = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          username = "qylad";
+        };
 
         modules = [
-          ./hosts/main
+          ./hosts/qylad-msi
+        ];
+      };
+
+      test = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          username = "test";
+        };
+
+        modules = [
+          ./hosts/test
         ];
       };
     };

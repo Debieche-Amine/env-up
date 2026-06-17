@@ -1,12 +1,16 @@
-{inputs, ...}: {
+{
+  inputs,
+  username,
+  ...
+}: {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = {inherit inputs username;};
 
-    users.qylad = {
+    users.${username} = {
       imports = [
-        ../../modules/users/qylad
+        ../../modules/users/${username}
         inputs.nvf.homeManagerModules.default
       ];
     };

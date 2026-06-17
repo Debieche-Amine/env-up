@@ -12,5 +12,7 @@
     discord
     spotify
     musescore
+    gnome-weather
+    libreoffice
   ];
 }

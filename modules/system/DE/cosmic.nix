@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }: {
   services.system76-scheduler.enable = true;
@@ -9,6 +10,6 @@
   services.desktopManager.cosmic.enable = true;
   services.displayManager.autoLogin = {
     enable = true;
-    user = "qylad";
+    user = username;
   };
 }

@@ -3,28 +3,56 @@
 set -o pipefail
 
 FLAKE_PATH="$HOME/nixos"
-FLAKE_TARGET="main"
+FLAKE_TARGET="$(hostname)"
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-LOG_FILE="/tmp/nixos-rebuild-$TIMESTAMP.log"
 
 echo
 echo "What do you want to do now?"
-echo "1) nixos-rebuild switch"
-echo "2) nixos-rebuild test"
+echo "1) nh os switch"
+echo "2) nh os test"
+echo "3) nixos-rebuild switch"
+echo "4) nixos-rebuild test"
 
-read -rp "Choose [1-3]: " choice
+read -rp "Choose [1-4]: " choice
+
+# Switch to the flake directory early so alejandra and git operate on the right files
+cd "$FLAKE_PATH" || exit 1
 
 alejandra .
 
 git add -A
 git diff --staged
 
+# Check if `nh` is installed and available in the PATH
+if command -v nh &>/dev/null; then
+        HAS_NH=true
+else
+        HAS_NH=false
+fi
+
 case "$choice" in
 1)
-        CMD="sudo nixos-rebuild switch --flake $FLAKE_PATH#$FLAKE_TARGET"
+        if [ "$HAS_NH" = false ]; then
+                echo "Error: 'nh' is not installed."
+                exit 1
+        fi
+        # nh handles privilege escalation internally; no sudo needed
+        CMD="nh os switch $FLAKE_PATH --hostname $FLAKE_TARGET"
         COMMIT_AFTER_BUILD=true
         ;;
 2)
+        if [ "$HAS_NH" = false ]; then
+                echo "Error: 'nh' is not installed."
+                exit 1
+        fi
+        CMD="nh os test $FLAKE_PATH --hostname $FLAKE_TARGET"
+        COMMIT_AFTER_BUILD=false
+        ;;
+3)
+        CMD="sudo nixos-rebuild switch --flake $FLAKE_PATH#$FLAKE_TARGET"
+        COMMIT_AFTER_BUILD=true
+        ;;
+4)
         CMD="sudo nixos-rebuild test --flake $FLAKE_PATH#$FLAKE_TARGET"
         COMMIT_AFTER_BUILD=false
         ;;
@@ -38,14 +66,13 @@ echo
 echo "Running: $CMD"
 echo
 
-if $CMD 2>&1 | tee "$LOG_FILE"; then
+# Execute the command directly so the terminal UI (like nom) is preserved
+if $CMD; then
         echo
         echo "Build succeeded."
 
         if [ "$COMMIT_AFTER_BUILD" = true ]; then
                 echo "Committing changes..."
-
-                cd "$FLAKE_PATH" || exit 1
 
                 # Only commit if there are changes
                 if ! git diff --cached --quiet; then
@@ -60,9 +87,4 @@ if $CMD 2>&1 | tee "$LOG_FILE"; then
 else
         echo
         echo "Build failed."
-        echo "Full log saved to: $LOG_FILE"
-        echo
-        echo "---- Errors ----"
-        grep -i "error" "$LOG_FILE" || echo "No explicit 'error' lines found."
-        echo "----------------"
 fi

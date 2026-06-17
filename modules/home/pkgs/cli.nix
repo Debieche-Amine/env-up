@@ -11,6 +11,7 @@
     httpie
     zellij
     nushell
-    codex
+    nmap
+    ncdu
   ];
 }
