@@ -1,9 +1,9 @@
 {...}: {
   imports = [
     ./android.nix
+    ./virtualization.nix
     # ./aria2.nix
     ./boot.nix
-    ./docker.nix
     ./duckdns.nix
     ./firewall.nix
     ./fonts.nix
@@ -18,7 +18,6 @@
     ./sql.nix
     ./ssh.nix
     ./steam.nix
-    ./waydroid.nix
     ./wifi.nix
     ./pkgs
     ./nix-ld

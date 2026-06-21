@@ -11,8 +11,6 @@
     extraGroups = lib.mkAfter [
       "networkmanager"
       "wheel"
-      "docker"
-      "kvm"
     ];
     packages = with pkgs; [];
     shell = pkgs.fish;

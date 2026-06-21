@@ -18,6 +18,8 @@
   } @ inputs: {
     nixosConfigurations = {
       qylad-msi = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
         specialArgs = {
           inherit inputs;
           username = "qylad";
@@ -29,6 +31,8 @@
       };
 
       test = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
         specialArgs = {
           inherit inputs;
           username = "test";
@@ -36,6 +40,20 @@
 
         modules = [
           ./hosts/test
+        ];
+      };
+
+      vm-test = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        specialArgs = {
+          inherit inputs;
+          username = "test";
+        };
+
+        modules = [
+          ./hosts/vm-test
+          "${nixpkgs}/nixos/modules/virtualisation/qemu-vm.nix"
         ];
       };
     };

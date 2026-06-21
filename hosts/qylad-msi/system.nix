@@ -1,4 +1,4 @@
-#Edit this configuration file to define what should be installed on
+# Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
@@ -14,9 +14,7 @@
     ../../modules/users/${username}/system.nix
   ];
 
-  networking.hostName = "qylad-msi"; # Define your hostname.
-
-  virtualisation.spiceUSBRedirection.enable = true;
+  networking.hostName = "qylad-msi";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -10,7 +10,6 @@
     fd
     httpie
     zellij
-    nushell
     nmap
     ncdu
   ];

@@ -17,7 +17,9 @@
       # "qylad-server.duckdns.org"
       "debiecheamine.duckdns.org"
     ];
-    usev4 = "web";
+
+    usev4 = "webv4, webv4=ipify-ipv4";
+    usev6 = "disabled";
     ssl = true;
     interval = "5min";
   };
