@@ -5,6 +5,5 @@
     alejandra
     nil
     nixd
-    mysql80
   ];
 }

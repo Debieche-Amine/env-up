@@ -10,7 +10,16 @@
   home.homeDirectory = "/home/${username}";
 
   imports = [
-    ../../home
+    ../../home/alacritty.nix
+    ../../home/kitty.nix
+    ../../home/fish.nix
+    ../../home/nushell.nix
+    ../../home/git.nix
+    ../../home/nvf.nix
+    ../../home/openclaw.nix
+    ../../home/hyprland
+    ../../home/pkgs
+    ../../home/xdg.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
