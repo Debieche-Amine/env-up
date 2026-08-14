@@ -127,19 +127,20 @@
             # treesitter.package = pkgs.vimPlugins.nvim-treesitter.grammarPlugins.nix;
           };
           rust = {
-            enable = true;
+            enable = false;
             extensions.crates-nvim.enable = true;
-            # lsp.opts = ''
-            #   ["rust-analyzer"] = {
-            #     cargo = {
-            #       allFeatures = true,
-            #     },
-            #     checkOnSave = true,
-            #     procMacro = {
-            #       enable = true,
-            #     },
-            #   }
-            # '';
+            #   lsp.opts = ''
+            #     ["rust-analyzer"] = {
+            #       cargo = {
+            #         allFeatures = true,
+            #       },
+            #       checkOnSave = false,
+            #       procMacro = {
+            #         enable = true,
+            #       },
+            #     }
+            #   '';
+            # };
           };
           python.enable = true;
           bash.enable = true;

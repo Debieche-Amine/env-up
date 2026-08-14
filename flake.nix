@@ -109,5 +109,29 @@
       just-a-vm = self.nixosConfigurations.just-a-vm.config.system.build.vm;
       qylad-msi-vm = self.nixosConfigurations.qylad-msi-vm.config.system.build.vm;
     };
+
+    devShells =
+      nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ] (system: let
+        pkgs-unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in {
+        esp32 = import ./shells/esp32.nix {pkgs = pkgs-unstable;};
+        default = self.devShells.${system}.esp32;
+      });
+
+    templates = {
+      esp32 = {
+        path = ./templates/esp32;
+        description = "ESP32 Rust minimal template";
+      };
+      default = self.templates.esp32;
+    };
   };
 }

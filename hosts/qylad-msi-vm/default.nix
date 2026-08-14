@@ -29,10 +29,10 @@
     "-device"
     "virtio-vga-gl"
 
-    "-device"
     "-display"
-
     "default,gl=on"
+
+    "-device"
     "virtio-tablet-pci"
   ];
 

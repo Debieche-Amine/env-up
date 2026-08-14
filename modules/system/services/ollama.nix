@@ -15,8 +15,7 @@
 
     # host = "0.0.0.0";
 
-    # package = pkgs-unstable.ollama-cuda;
-    package = pkgs-unstable.ollama;
+    package = pkgs-unstable.ollama-vulkan;
 
     loadModels = [
       # "llama3.1:8b"

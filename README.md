@@ -32,3 +32,19 @@ Standalone test virtual machine instance.
 ```bash
 nix run github:Debieche-Amine/qylad-nix#just-a-vm
 ```
+
+### `devShells.esp32`
+
+Development environment for ESP32 Rust (`std` / `esp-idf`) development.
+
+```bash
+nix develop github:Debieche-Amine/qylad-nix#esp32
+```
+
+### `templates.esp32`
+
+Minimal ESP32 Rust starter template.
+
+```bash
+nix flake init -t github:Debieche-Amine/qylad-nix#esp32
+```

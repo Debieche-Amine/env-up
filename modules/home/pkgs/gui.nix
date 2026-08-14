@@ -12,7 +12,9 @@
     pkgs.zed-editor
     pkgs.rio
     pkgs.wezterm
-    pkgs.vivaldi
+    (pkgs.vivaldi.override {
+      commandLineArgs = "--password-store=gnome-libsecret";
+    })
     pkgs.discord
     pkgs.spotify
     pkgs.musescore
@@ -24,6 +26,8 @@
 
     pkgs.bolt-launcher
     pkgs.proton-vpn
-    pkgs.chromium
+    (pkgs.chromium.override {
+      commandLineArgs = "--password-store=gnome-libsecret";
+    })
   ];
 }

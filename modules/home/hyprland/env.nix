@@ -13,5 +13,6 @@
     export QT_QPA_PLATFORM="wayland;xcb"
     export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
     export GDK_BACKEND="wayland,x11,*"
+    export CHROMIUM_USER_FLAGS="--password-store=gnome-libsecret"
   '';
 }

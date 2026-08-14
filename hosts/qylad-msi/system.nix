@@ -28,7 +28,7 @@ in {
 
     ../../modules/system/services/duckdns.nix
     # ../../modules/system/services/sql.nix
-    # ../../modules/system/services/postgresql.nix
+    ../../modules/system/services/postgresql.nix
     ../../modules/system/services/ssh.nix
     # ../../modules/system/services/litellm
     ../../modules/system/services/ollama.nix
@@ -42,6 +42,7 @@ in {
     ../../modules/system/services/upower.nix
 
     ../../modules/system/programs/android
+    ../../modules/system/programs/esp.nix
     ../../modules/system/programs/pkgs
     ../../modules/system/programs/nh.nix
     ../../modules/system/programs/rebuild.nix

@@ -41,7 +41,8 @@
     greetd.enableGnomeKeyring = true;
     # Synchronize it if `passwd` changes the account password.
     passwd.enableGnomeKeyring = true;
-    hyprlock = {};
+    hyprlock.enableGnomeKeyring = true;
+    login.enableGnomeKeyring = true;
   };
 
   # Hyprland provides its own screencast portal. The wlr portal is otherwise

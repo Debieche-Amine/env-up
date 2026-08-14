@@ -4,5 +4,8 @@
     gnumake
     pkg-config
     openssl
+    cargo
+    rustc
+    rustup
   ];
 }

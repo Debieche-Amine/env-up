@@ -20,6 +20,7 @@
     ../../home/hyprland
     ../../home/pkgs
     ../../home/xdg.nix
+    ../../home/zoxide.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
